@@ -1,0 +1,21 @@
+name: Tests
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  python:
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        python-version: ['3.10', '3.12']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: sudo apt-get update && sudo apt-get install -y python3-tk xvfb
+      - run: python -m py_compile app.py core.py extras.py hotkeys.py workspace.py shortcut_launcher.py
+      - run: xvfb-run -a python -m unittest discover -s tests -q
+      - run: xvfb-run -a python ui_smoke.py
