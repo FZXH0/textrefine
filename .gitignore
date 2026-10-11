@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+.env.*
+*.log
+config.json
+history.json
+draft.json
+before-restore.json
+*.zip
+.coverage
+.pytest_cache/
